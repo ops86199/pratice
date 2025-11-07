@@ -1,0 +1,24 @@
+pipeline {
+        agent any 
+        stages{
+            stage('Checkout') {
+                steps {
+                    git 'https://github.com/ops86199/pratice.git'
+                }
+            }
+            stage('Build docker image') {
+                steps {
+                sh '''
+                docker build -t myapp:v.0.0.1 .
+                '''
+                }
+            }
+            stage('Run container') {
+                steps {
+                  sh '''
+                    docker run -- name con1 -d -p 8080:8080 myapp:v.0.0.1 
+                    '''
+                }
+            }
+        }
+}
