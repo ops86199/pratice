@@ -1,6 +1,6 @@
 pipeline {
-        agent any 
-        stages{
+    agent any 
+     stages{
             stage('Checkout') {
                 steps {
                     git 'https://github.com/ops86199/pratice.git', branch: 'main',
@@ -16,9 +16,10 @@ pipeline {
             stage('Run container') {
                 steps {
                   sh '''
-                    docker run -- name con1 -d -p 8080:8080 myapp:v.0.0.1 
+                    docker run --name con1 -d -p 8080:8080 myapp:v.0.0.1 
                     '''
                 }
             }
-        }
+        
+    }
 }
