@@ -20,7 +20,7 @@ pipeline {
         stage('Run container') {
             steps {
                 sh '''
-                docker run --name mycon -d -p 8080:80 myapp:v0.0.1
+                docker run --name jarvish -d -p 8080:80 myapp:v0.0.1
                 '''
             }
         }
