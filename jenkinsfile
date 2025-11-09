@@ -23,7 +23,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 sh '''
-                docker build -t myapp:v0.0.1 .
+                docker build -t myapp:v0.0.2 .
                 '''
             }
         }
@@ -31,7 +31,7 @@ pipeline {
         stage('Run Container') {
             steps {
                 sh 'docker rm -f jarvish || true'
-                sh 'docker run --name jarvish -d -p 8081:80 myapp:v0.0.1'
+                sh 'docker run --name jarvish -d -p 8081:80 myapp:v0.0.2'
                 
             }
         }
