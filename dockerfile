@@ -1,10 +1,39 @@
-# Use a supported Java 17 base image from Eclipse Temurin
-FROM eclipse-temurin:17-jdk
+# FROM ubuntu:20.04 AS prakash
+# RUN apt update -y && \
+#     apt install -y maven git openjdk-17-jdk && \
+#     git clone https://github.com/ops86199/pratice.git
+# WORKDIR /pratice 
+# RUN mvn package
 
-WORKDIR /app
+# FROM tomcat:9-jdk17 
+# COPY --from=prakash pratice/target/*.war /user/local/tomcat/myapp
+# RUNCHMOD -R 755 /user/locsl/tomcat/myapps
+# EXPOSE 8081
+# CMD ["catalina.sh","run"]
 
-COPY target/myapp-1.0.jar app.jar
 
-EXPOSE 8083
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+FROM ubuntu:20.04 AS prakash
+
+RUN apt update -y && \
+    apt install -y maven git openjdk-17-jdk && \
+    git clone https://github.com/ops86199/pratice.git
+
+WORKDIR /pratice
+RUN mvn package
+
+# ---------------------
+
+FROM tomcat:9-jdk17
+
+# Create app folder
+RUN mkdir -p /usr/local/tomcat/webapps/myapp
+
+# Copy WAR file
+COPY --from=prakash /pratice/target/*.war /usr/local/tomcat/webapps/myapp/
+
+RUN chmod -R 755 /usr/local/tomcat/webapps/myapp
+
+EXPOSE 8081
+
+CMD ["catalina.sh","run"]
