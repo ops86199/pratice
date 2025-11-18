@@ -1,24 +1,8 @@
-# FROM ubuntu:20.04 AS prakash
-# RUN apt update -y && \
-#     apt install -y maven git openjdk-17-jdk && \
-#     git clone https://github.com/ops86199/pratice.git
-# WORKDIR /pratice 
-# RUN mvn package
-
-# FROM tomcat:9-jdk17 
-# COPY --from=prakash pratice/target/*.war /user/local/tomcat/myapp
-# RUNCHMOD -R 755 /user/locsl/tomcat/myapps
-# EXPOSE 8081
-# CMD ["catalina.sh","run"]
-
-
-
-FROM ubuntu:20.04 AS prakash
-# Avoid timezone question
-ARG DEBIAN_FRONTEND=noninteractive
-
+FROM maven:3.9.2-eclipse-temurin-17 AS prakash
 WORKDIR /pratice
-RUN mvn package
+COPY pom.xml .
+COPY src ./src
+RUN mvn clean package -DskipTests
 
 # ---------------------
 
