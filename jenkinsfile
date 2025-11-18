@@ -32,7 +32,7 @@ pipeline {
         stage('Run Container') {
             steps {
                 sh 'docker rm -f pream || true'
-                sh 'docker run --name pream -d -p 8083:8083 myapp:v0.0.3'
+                sh 'docker run --name pream -d -p 8083:8080 myapp:v0.0.3'
                 
             }
         }
