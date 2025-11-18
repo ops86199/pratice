@@ -12,10 +12,10 @@ FROM tomcat:9-jdk17
 RUN mkdir -p /usr/local/tomcat/webapps/myapp
 
 # Copy WAR file
-COPY --from=prakash /pratice/target/*.war /usr/local/tomcat/webapps/myapp/
+COPY --from=prakash /pratice/target/*.jar /usr/local/tomcat/webapps/myapp/
 
 RUN chmod -R 755 /usr/local/tomcat/webapps/myapp
 
-EXPOSE 8081
+EXPOSE 8080
 
 CMD ["catalina.sh","run"]
