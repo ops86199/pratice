@@ -51,7 +51,7 @@ pipeline {
 
         stage('Deploy to EC2') {
             steps {
-                sshagent(['ec2-ssh']) {
+                sshagent(['ec2-user']) {
                     sh '''
                     ssh -o StrictHostKeyChecking=no ec2-user@54.242.11.19 "
                     docker pull ops86199/myapp:v0.1.1 &&
