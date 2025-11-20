@@ -53,7 +53,7 @@ pipeline {
             steps {
                 sshagent(['ec2-ssh']) {
                     sh '''
-                    ssh -o StrictHostKeyChecking=no ec2-user@54.242.11.19 "
+                    ssh -o StrictHostKeyChecking=no ubuntu@54.242.11.19 "
                     docker pull ops86199/myapp:v0.1.1 &&
                     docker stop app || true &&
                     docker rm app || true &&
